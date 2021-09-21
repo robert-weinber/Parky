@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ParkyAPI.Models;
 using ParkyAPI.Models.Dtos;
 using ParkyAPI.Repository.IRepository;
 using System;
@@ -34,16 +35,37 @@ namespace ParkyAPI.Controllers
             return Ok(objDto);
         }
 
-        [HttpGet("{nationalParkId:int}")]
+        [HttpGet("{nationalParkId:int}", Name = "GetNationalPark")]
         public IActionResult GetNationalPark(int nationalParkId)
         {
             var obj = _npRepo.GetNationalPark(nationalParkId);
-            if(obj == null)
+            if (obj == null)
             {
                 return NotFound();
             }
             var objDto = _mapper.Map<NationalParkDto>(obj);
             return Ok(objDto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateNationalPark([FromBody]NationalParkDto nationalParkDto)
+        {
+            if(nationalParkDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+            if(_npRepo.NationalParkExists(nationalParkDto.Name))
+            {
+                ModelState.AddModelError("", "National Park Exists!");
+                return StatusCode(404, ModelState);
+            }
+            var nationalParkobj = _mapper.Map<NationalPark>(nationalParkDto);
+            if(!_npRepo.CreateNationalPark(nationalParkobj))
+            {
+                ModelState.AddModelError("",$"Something went wrong when saving the record {nationalParkobj.Name}");
+                return StatusCode(500, ModelState);
+            }
+            return CreatedAtRoute("GetNationalPark",new { nationalParkId = nationalParkobj.Id },nationalParkobj);
         }
     }
 }

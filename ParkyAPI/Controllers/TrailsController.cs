@@ -27,7 +27,7 @@ namespace ParkyAPI.Controllers
         }
 
         /// <summary>
-        /// Get list of trails.
+        /// Get the list of all trails.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -61,6 +61,29 @@ namespace ParkyAPI.Controllers
                 return NotFound();
             }
             var objDto = _mapper.Map<TrailDto>(obj);
+            return Ok(objDto);
+        }
+        /// <summary>
+        /// Get list of trails in a national park.
+        /// </summary>
+        /// <param name="nationalParkId"> The Id of the national park.</param>
+        /// <returns></returns>
+        [HttpGet("[action]/{nationalParkId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TrailDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetTrailInNationalPark(int nationalParkId)
+        {
+            var objList = _trailRepo.GetTrailsInNationalPark(nationalParkId);
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            var objDto = new List<TrailDto>();
+            foreach (var obj in objList)
+            {
+                objDto.Add(_mapper.Map<TrailDto>(obj));
+            }
             return Ok(objDto);
         }
 

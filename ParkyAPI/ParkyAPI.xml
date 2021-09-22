@@ -17,5 +17,27 @@
             <param name="nationalParkId"> The Id of the national park.</param>
             <returns></returns>
         </member>
+        <member name="M:ParkyAPI.Controllers.NationalParksController.CreateNationalPark(ParkyAPI.Models.Dtos.NationalParkDto)">
+            <summary>
+            Create national park
+            </summary>
+            <param name="nationalParkDto"> National park to be added.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.NationalParksController.UpdateNationalPark(System.Int32,ParkyAPI.Models.Dtos.NationalParkDto)">
+            <summary>
+            Update a national park
+            </summary>
+            <param name="nationalParkId"> The Id of the national park.</param>
+            <param name="nationalParkDto"> The details of the national park.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ParkyAPI.Controllers.NationalParksController.DeleteNationalPark(System.Int32)">
+            <summary>
+            Delete a national park.
+            </summary>
+            <param name="nationalParkId"> The Id of the national park.</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

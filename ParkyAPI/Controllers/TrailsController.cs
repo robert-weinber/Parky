@@ -13,7 +13,7 @@ namespace ParkyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiExplorerSettings(GroupName = "ParkyOpenAPISpecTrails")]
+    //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpecTrails")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class TrailsController : Controller
     {

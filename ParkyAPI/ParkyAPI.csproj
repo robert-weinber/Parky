@@ -23,5 +23,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Initializer\" />
+  </ItemGroup>
+
 
 </Project>

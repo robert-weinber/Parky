@@ -21,6 +21,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using ParkyAPI.Initializer;
 
 namespace ParkyAPI
 {
@@ -40,6 +41,7 @@ namespace ParkyAPI
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<INationalParkRepository, NationalParkRepository>();
             services.AddScoped<ITrailRepository, TrailRepository>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddAutoMapper(typeof(ParkyMappings));
             services.AddApiVersioning(options =>
             {
@@ -96,7 +98,7 @@ namespace ParkyAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -119,6 +121,7 @@ namespace ParkyAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            dbInitializer.Initialize();
 
             app.UseEndpoints(endpoints =>
             {

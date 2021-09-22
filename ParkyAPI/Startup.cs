@@ -42,7 +42,19 @@ namespace ParkyAPI
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
                         Title = "ParkyAPI API",
-                        Version = "1"
+                        Version = "1",
+                        Description = "Demo Parky API",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                        { 
+                            Email = "robert.weinber@hotmail.com",
+                            Name = "Robert Weinber",
+                            Url = new Uri("https://github.com/robert-weinber")
+                        },
+                        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                        {
+                            Name = "MIT License",
+                            Url = new Uri("https://en.wikipedia.org/wiki/MIT_License")
+                        }
                     });
                 var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlCommentFullPath = Path.Combine(AppContext.BaseDirectory,xmlCommentFile);

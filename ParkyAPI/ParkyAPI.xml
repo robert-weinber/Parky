@@ -14,7 +14,7 @@
             <summary>
             Get individual national park.
             </summary>
-            <param name="nationalParkDto"> The Id of the national park.</param>
+            <param name="nationalParkId"> The Id of the national park.</param>
             <returns></returns>
         </member>
     </members>

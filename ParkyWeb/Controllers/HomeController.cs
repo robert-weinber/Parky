@@ -57,12 +57,34 @@ namespace ParkyWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(User obj)
         {
-            User objUser = await _accRepo.LoginAsync(SD.UserAPIPath, obj);
+            User objUser = await _accRepo.LoginAsync(SD.UserAPIPath + "authenticate/", obj);
             if (objUser == null)
             {
                 return View();
             }
             HttpContext.Session.SetString("JWToken", objUser.Token);
+            return RedirectToAction("~Home/Index");
+        }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(User obj)
+        {
+            bool result = await _accRepo.RegisterAsync(SD.UserAPIPath + "register/", obj);
+            if (!result)
+            {
+                return View();
+            }
+            return RedirectToAction("~Home/Login");
+        }
+
+        public async Task<IActionResult> LogoutAsync()
+        {
+            HttpContext.Session.SetString("JWToken", "");
             return RedirectToAction("~Home/Index");
         }
     }

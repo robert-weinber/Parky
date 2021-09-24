@@ -87,5 +87,12 @@
             <param name="trailId"> The Id of the trail.</param>
             <returns></returns>
         </member>
+        <member name="M:ParkyAPI.Controllers.UsersController.Authenticate(ParkyAPI.Models.User)">
+            <summary>
+            Authenticating User.
+            </summary>
+            <param name="model">User to authenticate</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

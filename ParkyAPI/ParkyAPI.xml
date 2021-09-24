@@ -94,5 +94,12 @@
             <param name="model">User to authenticate</param>
             <returns></returns>
         </member>
+        <member name="M:ParkyAPI.Controllers.UsersController.Register(ParkyAPI.Models.User)">
+            <summary>
+            Register new user
+            </summary>
+            <param name="model">Username and password to register</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

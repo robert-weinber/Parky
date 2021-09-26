@@ -73,6 +73,7 @@ namespace ParkyWeb.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
             HttpContext.Session.SetString("JWToken", objUser.Token);
+            TempData["alert"] = "Welcome " + objUser.Username;
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -84,11 +85,13 @@ namespace ParkyWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(User obj)
         {
-            bool result = await _accRepo.RegisterAsync(SD.UserAPIPath + "register/", obj);
+            bool result = await _accRepo.RegisterAsync(SD.UserAPIPath, obj);
             if (!result)
             {
+                TempData["alert"] = "Registration Error";
                 return View();
             }
+            TempData["alert"] = "Registration Successful";
             return RedirectToAction("Login");
         }
 
